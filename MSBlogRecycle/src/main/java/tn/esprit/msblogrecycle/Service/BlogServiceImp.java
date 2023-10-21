@@ -95,4 +95,8 @@ public class BlogServiceImp implements IBlogServic{
         return blogs;
     }
 
+    public Blog getBlogById(int id) {
+        return blogRepsitory.findById(id).orElse(null);
+    }
+
 }

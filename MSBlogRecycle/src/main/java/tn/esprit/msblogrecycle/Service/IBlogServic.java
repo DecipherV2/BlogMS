@@ -19,4 +19,5 @@ public interface IBlogServic {
     String deleteArticle(int id);
 
     public List<Blog> getAllBlogs();
+    public Blog getBlogById(int id);
 }

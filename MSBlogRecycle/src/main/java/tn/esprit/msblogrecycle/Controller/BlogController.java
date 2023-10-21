@@ -15,6 +15,8 @@ import tn.esprit.msblogrecycle.Service.IBlogServic;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
+@RequestMapping("/blog")
 public class BlogController {
 
     private String title="hello I'm the Article Microservice";
@@ -24,13 +26,14 @@ public class BlogController {
     IBlogServic iBlogServic;
 
 
-
+    @CrossOrigin(origins = "*")
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<HttpSender.Response> addArticle(@RequestPart("file") MultipartFile file, @RequestParam("Blog") String s)throws JsonParseException, JsonMappingException, Exception {
         return iBlogServic.add(file,s);
     }
 
+    @CrossOrigin(origins = "*")
     @PutMapping("/update-Blog/{id}")
     @ResponseBody
     Blog updateArticle(@RequestBody Blog s){
@@ -40,23 +43,38 @@ public class BlogController {
 
 
     @RequestMapping("/hello")
-
+    @CrossOrigin(origins = "*")
     public String sayHello(){
 
         System.out.println(title);
         return title;
     }
 
-    @DeleteMapping(value="/id", produces= MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(origins = "*")
+    @DeleteMapping(value="/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> deleteArticle(@PathVariable(value="id") int  id){
         return new ResponseEntity<>(iBlogServic.deleteArticle(id),HttpStatus.OK);
 
     }
 
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/all")
     public List<Blog> getAllBlogs() {
         List<Blog> blogs = iBlogServic.getAllBlogs();
         return blogs;
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/{id}")
+    public ResponseEntity<Blog> getBlogById(@PathVariable int id) {
+        Blog blog = iBlogServic.getBlogById(id);
+        if (blog != null) {
+            return ResponseEntity.ok(blog);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
