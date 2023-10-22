@@ -74,10 +74,7 @@ public class BlogServiceImp implements IBlogServic{
     }
 
     public Blog updateArticle(Blog newArticle) {
-        return (blogRepsitory.save(newArticle));
-
-
-
+        return blogRepsitory.save(newArticle);
     }
 
 

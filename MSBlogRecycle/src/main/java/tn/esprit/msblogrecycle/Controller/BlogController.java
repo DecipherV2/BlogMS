@@ -34,7 +34,7 @@ public class BlogController {
     }
 
     @CrossOrigin(origins = "*")
-    @PutMapping("/update-Blog/{id}")
+    @PutMapping("/update-Blog")
     @ResponseBody
     Blog updateArticle(@RequestBody Blog s){
         return iBlogServic.updateArticle(s);
